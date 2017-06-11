@@ -19,9 +19,6 @@ INA226 ina;  // I2C current shunt monitor and bus voltage
 #define ATREST 1
 #define CHARGING 2
 #define LOAD 3
-#define BULK 4
-#define ABSORB 5
-#define FLOAT 6
 
 float startSoC = 0;
 float estsoc = 0;
@@ -289,31 +286,31 @@ void calcPower() {
 #define ChargeCoulombicEfficiency  0.6
 #define DischargeCoulombicEfficiency  0.5
 
-// return an estimated SoC based on last real reading and coloumb count
-double getsoc() {
-	if (state == CHARGING) {
-		return (double)startSoC / 100 - (((ahload - ahcharge) / BatteryWH));// *((100 - pow(1.05, StateOfCharge))*ChargeCoulombicEfficiency + 40) / 100);//* 0.94)
-	}
-	else {
-		return (double)startSoC / 100 - (((ahload - ahcharge) / BatteryWH));// *(2 - ((100 - StateOfCharge*(DischargeCoulombicEfficiency / 5)*DischargeCoulombicEfficiency) / 100)));//* 0.92)
-	}
-}
+//// return an estimated SoC based on last real reading and coloumb count
+//double getsoc() {
+//	if (state == CHARGING) {
+//		return (double)startSoC / 100 - (((ahload - ahcharge) / BatteryWH));// *((100 - pow(1.05, StateOfCharge))*ChargeCoulombicEfficiency + 40) / 100);//* 0.94)
+//	}
+//	else {
+//		return (double)startSoC / 100 - (((ahload - ahcharge) / BatteryWH));// *(2 - ((100 - StateOfCharge*(DischargeCoulombicEfficiency / 5)*DischargeCoulombicEfficiency) / 100)));//* 0.92)
+//	}
+//}
 
 
-void countcoulombs() {
-	if (avgCurrent == 0) {
-		return;
-	}
-	int interval = millis() - lastreading;
-
-	if (avgCurrent < 0) { // load
-		ahload += (pow(-avgCurrent, Peukert)  * ((double)interval / 3600000)); // milliseconds in an hour
-	}
-	else { // charge
-		ahcharge += (avgCurrent *  ChargeEfficiencyFactor * ((double)interval / 3600000)); // milliseconds in an hour
-	}
-	lastreading = millis();
-}
+//void countcoulombs() {
+//	if (avgCurrent == 0) {
+//		return;
+//	}
+//	int interval = millis() - lastreading;
+//
+//	if (avgCurrent < 0) { // load
+//		ahload += (pow(-avgCurrent, Peukert)  * ((double)interval / 3600000)); // milliseconds in an hour
+//	}
+//	else { // charge
+//		ahcharge += (avgCurrent *  ChargeEfficiencyFactor * ((double)interval / 3600000)); // milliseconds in an hour
+//	}
+//	lastreading = millis();
+//}
 
 
 void calculatestate() {
@@ -379,17 +376,16 @@ void debugPrint()
 	if (ina.isAlert()) { Serial.println("ALERT"); }
 }
 
-// if stable reset SoC
+// if OC for T reset SoC
 void calculatesoc() {
 	if (state == ATREST) {
 		if (
 			(laststate == LOAD && (laststatechange + 300000 < millis())) ||
 			(laststate == CHARGING && (laststatechange + 3600000 < millis()))
-		) {
-			estsoc = getsoc();
+		) {			
 			// voltage based soc
 			startSoC = 100 - ((config.FullyChargedOCVoltage - avgVolt) * 80.808); //100 - ((12.80 - voltage) * 100);
-			BatteryWH = (int)(BatteryWH * startSoC / estsoc);
+			BatteryWH = (int)(BatteryWH * startSoC / StateOfCharge);
 			//Serial.println("estsoc:");
 			//Serial.println(estsoc);
 			//Serial.println("real soc:");
