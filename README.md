@@ -21,14 +21,15 @@ Teensy 3.1/3.2 board
 
 7805C linear regulator for Teensy
 
+Current shunt (100A)
 
 ###Notes:
 
 12V > Polyswitch fuse > 7805C linear regulator > Teensy
 3.3V power for INA226 and ISO1050 from Teensy
-5V power ISO1050 CAN output driver from N2K bus
-
+5V power (7805C) for ISO1050 CAN output driver from N2K bus
 INA226 is tiny device use MSOP10 SMD to DIP10 Adapter PCB Board (ebay)
+
 
 
 
