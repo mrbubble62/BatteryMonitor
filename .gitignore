@@ -42,5 +42,14 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-debug/
-_vm/
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+
+*.suo
+/.vs
+/__vm
+/Debug
