@@ -3,19 +3,6 @@
 #ifndef _KALMAN_h
 #define _KALMAN_h
 
-
-//typedef struct {
-//	double q; //process noise covariance
-//	double r; //measurement noise covariance
-//	double x; //value
-//	double p; //estimation error covariance
-//	double k; //kalman gain
-//} kalman_state;
-//
-//kalman_state kalman_init(double q, double r, double p, double intial_value);
-//
-//void kalman_update(kalman_state* state, double measurement);
-
 class Kalman {
 private:
 	/* Kalman filter variables */
@@ -88,7 +75,6 @@ public:
 		return this->p;
 	}
 };
-
 
 #endif
 
