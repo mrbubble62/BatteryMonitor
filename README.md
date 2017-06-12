@@ -33,6 +33,15 @@ Teensy regulator cant handle Alternator voltages so 7805C is used to bring it do
 
 INA226 is tiny device use MSOP10 SMD to DIP10 Adapter PCB Board (ebay)
 
+##PGN's supported
+PGN 127508 - Battery Status (every second)
+  Voltage, Current
+PGN 127506 - DC Status (every second)
+  State of Charge, Ripple voltage
+PGN 127513 - Battery Configuration
+  Detailed battery info
 
-
+Configuration e.g. Battery amp hours stored in EEPROM
+  To do: Update configuration over serial
+  Update configuration over N2K
 
