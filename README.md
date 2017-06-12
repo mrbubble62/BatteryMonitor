@@ -23,12 +23,16 @@ Teensy 3.1/3.2 board
 
 
 ###Notes:
+Kalman filter values are tested at Voltage and Current sampling of 20ms
+SoC calulation needs more testing
 
+Teensy regulator cant handle Alternator voltages so 7805C is used to bring it down.
 12V > Polyswitch fuse > 7805C linear regulator > Teensy
 3.3V power for INA226 and ISO1050 from Teensy
-5V power ISO1050 CAN output driver from N2K bus
+5V power ISO1050 CAN for output driver comes from N2K bus
 
 INA226 is tiny device use MSOP10 SMD to DIP10 Adapter PCB Board (ebay)
+
 
 
 
