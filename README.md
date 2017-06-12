@@ -38,7 +38,7 @@ INA226 is tiny device use MSOP10 SMD to DIP10 Adapter PCB Board (ebay)
   Voltage, Current
 ## PGN 127506 - DC Status (every second)
   State of Charge, Ripple voltage# 
-## PGN 127513 - Battery Configuration
+## PGN 127513 - Battery Configuration  (every minute)
   Detailed battery info
 
 ## To do: Configuration e.g. Battery Amp hours stored in EEPROM
