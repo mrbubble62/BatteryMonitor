@@ -52,4 +52,18 @@ Temporary Items
 *.suo
 /.vs
 /__vm
+
+
+# Visual C++ cache files
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+*.VC.db
+*.vcxproj
+*.vcxproj.filters
+
 /Debug
