@@ -88,7 +88,7 @@ const tConfig defConfig PROGMEM = {
 	81.9175				// MaxExpectedCurrent can't get any more out of shunt R
 };
 
-const tProductInformation BatteryMonitorProductInformation PROGMEM={
+const tNMEA2000::tProductInformation BatteryMonitorProductInformation PROGMEM={
 	1301,                       // N2kVersion
 	100,                        // Manufacturer's product code
 	"Battery monitor",			// Manufacturer's Model ID
@@ -99,11 +99,10 @@ const tProductInformation BatteryMonitorProductInformation PROGMEM={
 	1                           // LoadEquivalency
 };                                      
 
-const tNMEA2000::tProgmemConfigurationInformation BatteryMonitorConfigurationInformation PROGMEM={
-	"Mr Bubble", // Manufacturer information
-	"Battery Monitor", // Installation description1
-	"" // Installation description2
-};
+const char BatteryMonitorManufacturerInformation[] PROGMEM = "Mr Bubble";
+const char BatteryMonitorInstallationDescription1[] PROGMEM = "Battery Monitor";
+const char BatteryMonitorInstallationDescription2[] PROGMEM = "";
+
  
 // PGNReceive[] = { 126464L ,126992L, 126208L };
 // List here messages your device will transmit.
@@ -188,7 +187,7 @@ void setup() {
 	// Set Product information
 	NMEA2000.SetProductInformation(&BatteryMonitorProductInformation );
 	// Set Configuration information
-	NMEA2000.SetProgmemConfigurationInformation(&BatteryMonitorConfigurationInformation );
+	NMEA2000.SetProgmemConfigurationInformation(BatteryMonitorManufacturerInformation, BatteryMonitorInstallationDescription1, BatteryMonitorInstallationDescription2);
 	// Set device information
 	NMEA2000.SetDeviceInformation(1,      // Unique number. Use e.g. Serial number.
 		170,    // Device function=Battery. See codes on http://www.nmea.org/Assets/20120726%20nmea%202000%20class%20&%20function%20codes%20v%202.00.pdf
